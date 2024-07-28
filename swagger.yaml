@@ -1,0 +1,238 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  description: Jobs api description
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://jobs-api-tnk3.onrender.com/api/v1
+    variables: {}
+paths:
+  /jobs:
+    get:
+      tags:
+        - Jobs
+      summary: Get All Jobs
+      description: Fetch all jobs
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Jobs
+      summary: Create job
+      description: Create a job
+      operationId: Createjob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreatejobRequest"
+                - example:
+                    company: Copmany name
+                    position: Position name
+            example:
+              company: Copmany name
+              position: Position name
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The job id
+    get:
+      tags:
+        - Jobs
+      summary: Get single job
+      description: Fetch single job
+      operationId: Getsinglejob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Jobs
+      summary: Update Job
+      description: Edit job
+      operationId: UpdateJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateJobRequest"
+                - example:
+                    company: Edited values
+                    position: Edited values
+            example:
+              company: Edited values
+              position: Edited values
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+        - Jobs
+      summary: Delete Job
+      description: Delete job
+      operationId: DeleteJob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/LoginRequest"
+                - example:
+                    email: example@example.com
+                    password: super secret password
+            example:
+              email: example@example.com
+              password: super secret password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      description: Create a new user
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RegisterRequest"
+                - example:
+                    name: Arek Szłapa nowy user
+                    password: "1234456"
+                    email: arek@gmail.com
+            example:
+              name: Arek Szłapa nowy user
+              password: "1234456"
+              email: arek@gmail.com
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    CreatejobRequest:
+      title: CreatejobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Copmany name
+        position: Position name
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Edited values
+        position: Edited values
+    LoginRequest:
+      title: LoginRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: example@example.com
+        password: super secret password
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+        - name
+        - password
+        - email
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        name: Arek Szłapa nowy user
+        password: "1234456"
+        email: arek@gmail.com
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Jobs
+    description: ""
+  - name: Auth
+    description: ""
